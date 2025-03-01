@@ -1,0 +1,6 @@
+import { getManyArticles } from "@/api";
+import useSWR from "swr";
+
+export function useArticles(args: Parameters<typeof getManyArticles>[0]) {
+	return useSWR(args, getManyArticles);
+}

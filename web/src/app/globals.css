@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  @apply w-full min-h-dvh;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.article :where(h1, h2) {
+  @apply w-fit mt-6 mb-2 font-geist-mono;
+}
+
+.article h1 {
+  @apply text-2xl;
+}
+
+.article h2 {
+  @apply text-xl;
+}
+
+.toast {
+  @apply bg-foreground;
+}
