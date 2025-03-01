@@ -74,7 +74,7 @@ export const getManyArticles = ({
 }
 
 export const createArticle = (
-	data: Omit<IArticle, 'id'>,
+	data: Omit<IArticle, 'id' | 'updatedAt' | 'createdAt'>,
 ) => {
 	const { controller, res } = fetchApi(
 		`/articles`, {

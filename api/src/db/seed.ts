@@ -20,7 +20,7 @@ async function seedDatabase() {
 				createdAt,
 				updatedAt: new Date(createdAt.getTime() + Math.random() * HOUR),
 				content,
-				title: `#${i} Технологии и ИИ: взгляд в будущее`,
+				title: content.split('\n').at(0)!.trim(),
 				url: `sample-${i}`,
 				metaKeywords: 'ai, tech, future',
 				metaDescription: 'Будущее с ИИ',

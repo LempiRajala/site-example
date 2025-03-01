@@ -10,6 +10,43 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PropsWithChildren } from "react";
+import { MdNavigateNext } from "react-icons/md";
+
+function Paginator({
+	page,
+	className,
+	nextDisabled,
+	prevDisabled,
+	onNext,
+	onPrev,
+}: PropsWithClassName & {
+	page: number,
+	nextDisabled: boolean,
+	prevDisabled: boolean,
+	onPrev: () => void,
+	onNext: () => void,
+}) {
+	return (
+		<div className={clsx(
+			className,
+			"grid grid-cols-[auto_1fr_auto] w-fit mx-auto gap-3",
+		)}>
+			<button onClick={onPrev} disabled={prevDisabled}>
+				<MdNavigateNext
+					size={22}
+					className={clsx("rotate-180", prevDisabled && "opacity-50 cursor-not-allowed")}/>
+			</button>
+			<div className="text-center font-mono">
+				{page}
+			</div>
+			<button onClick={onNext} disabled={nextDisabled}>
+				<MdNavigateNext
+					size={22}
+					className={clsx(nextDisabled && "opacity-50 cursor-not-allowed")}/>
+			</button>
+		</div>
+	)
+}
 
 const RowCell = ({ children, className } : PropsWithChildren & PropsWithClassName) => (
 	<div className={clsx(className, "py-0.5 px-1")}>{children}</div>
@@ -21,7 +58,7 @@ function UpperRow() {
 			"grid grid-cols-subgrid col-span-full divide-x-1 divide-border",
 			"border-1 border-border bg-background",
 		)}>
-			<RowCell>ID</RowCell>
+			<RowCell className="w-6">ID</RowCell>
 			<RowCell>URL статьи</RowCell>
 			<RowCell>Заголовок</RowCell>
 			<RowCell>Последнее изменение</RowCell>
@@ -69,6 +106,20 @@ export default function EditorPage() {
 
 	const onNew = () => router.push('/dashboard/editor/new');
 
+	const nextPageDisabled = articles ? articles.length < limit : true;
+
+	const prevPageDisabled = page <= 0;
+
+	const onNextPage = () => {
+		if(nextPageDisabled) return;
+		router.push(location.pathname + `?page=${page + 1}`);
+	}
+
+	const onPrevPage = () => {
+		if(prevPageDisabled) return;
+		router.push(location.pathname + `?page=${page - 1}`);
+	}
+
 	return (
 		<div className="text-text p-2">
 			<div className="border-0 border-b-1 border-border pb-2 mb-2">
@@ -76,6 +127,14 @@ export default function EditorPage() {
 					New 
 				</Button>
 			</div>
+			<Paginator
+				className="my-2"
+				nextDisabled={nextPageDisabled}
+				prevDisabled={prevPageDisabled}
+				onNext={onNextPage}
+				onPrev={onPrevPage}
+				page={page}
+			/>
 			<div className="grid grid-cols-[auto_auto_auto_auto_auto]">
 				<UpperRow/>
 				{
@@ -89,6 +148,14 @@ export default function EditorPage() {
 					))
 				}
 			</div>
+			<Paginator
+				className="mt-2"
+				nextDisabled={nextPageDisabled}
+				prevDisabled={prevPageDisabled}
+				onNext={onNextPage}
+				onPrev={onPrevPage}
+				page={page}
+			/>
 		</div>
 	)
 }
