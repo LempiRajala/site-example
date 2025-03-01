@@ -42,7 +42,7 @@ export function ArticleEditor({
 		}
 
 		if(article === null) {
-			const { article: articlePromise } = createArticle(fields);
+			const { data: articlePromise } = createArticle(fields);
 
 			articlePromise.then(
 				article => router.push(`/dashboard/editor/${article.id}`),

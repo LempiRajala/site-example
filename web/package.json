@@ -13,6 +13,7 @@
     "@uiw/react-md-editor": "^4.0.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "marked": "^15.0.7",
     "next": "15.1.7",

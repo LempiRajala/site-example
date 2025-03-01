@@ -4,6 +4,8 @@ export interface IArticle {
 	id: number;
 	title: string;
 	content: string;
+	updatedAt: string;
+	createdAt: string;
 	url: string;
 	metaKeywords: string;
 	metaDescription: string;
@@ -20,7 +22,7 @@ export const getArticle = (
 	const { controller, res } = fetchApi(`/articles/${id}`);
 	return {
 		controller,
-		article: res.then(async res => {
+		data: res.then(async res => {
 			if(res.status === 404) {
 				return null;
 			}
@@ -40,7 +42,7 @@ export const getArticleByUrl = (
 	const { controller, res } = fetchApi(`/articles/url/${url}`);
 	return {
 		controller,
-		article: res.then(async res => {
+		data: res.then(async res => {
 			if(res.status === 404) {
 				return null;
 			}
@@ -61,7 +63,7 @@ export const getManyArticles = ({
 	const { controller, res } = fetchApi(`/articles?limit=${limit}&offset=${offset}`);
 	return {
 		controller,
-		articles: res.then(async res => {
+		data: res.then(async res => {
 			if(!res.ok) {
 				throw new Error(`${res.status}: ${await res.text()}`);
 			}
@@ -82,7 +84,7 @@ export const createArticle = (
 		});
 	return {
 		controller,
-		article: res.then(async res => {
+		data: res.then(async res => {
 			if(!res.ok) {
 				throw new Error(`${res.status}: ${await res.text()}`);
 			}
@@ -104,7 +106,7 @@ export const updateArticle = (
 		});
 	return {
 		controller,
-		article: res.then(async res => {
+		data: res.then(async res => {
 			if(!res.ok) {
 				throw new Error(`${res.status}: ${await res.text()}`);
 			}
@@ -123,7 +125,7 @@ export const deleteArticle = (
 		});
 	return {
 		controller,
-		article: res.then(async res => {
+		data: res.then(async res => {
 			if(res.status === 404) {
 				return null;
 			}

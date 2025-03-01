@@ -11,7 +11,7 @@ export const generateMetadata = async (
   { params }: { params: Params }
 ): Promise<Metadata> => {
 	const articlePath = (await params).article;
-	const article = await getArticleByUrl(articlePath).article;
+	const article = await getArticleByUrl(articlePath).data;
 
   return {
     title: article?.title,
@@ -26,7 +26,7 @@ export default async function ArticlePage({
 	params: Params
 }) {
 	const articlePath = (await params).article;
-	const article = await getArticleByUrl(articlePath).article;
+	const article = await getArticleByUrl(articlePath).data;
 	if(!article) {
 		return notFound();
 	}
