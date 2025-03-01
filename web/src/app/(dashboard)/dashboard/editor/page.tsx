@@ -1,5 +1,6 @@
 'use client';
 
+import { IArticle } from "@/api";
 import { Button } from "@/components/button";
 import { useArticles } from "@/hooks/useArticles";
 import { PropsWithClassName } from "@/types";
@@ -21,6 +22,7 @@ function UpperRow() {
 			"border-1 border-border bg-background",
 		)}>
 			<RowCell>ID</RowCell>
+			<RowCell>URL статьи</RowCell>
 			<RowCell>Заголовок</RowCell>
 			<RowCell>Последнее изменение</RowCell>
 			<RowCell>Дата создания</RowCell>
@@ -30,17 +32,14 @@ function UpperRow() {
 
 function Row({
 	id,
+	url,
 	title,
 	updatedAt,
 	createdAt,
 	className,
 	variant,
 	href,
-}: PropsWithClassName & {
-	id: number;
-	title: string;
-	updatedAt: string;
-	createdAt: string;
+}: PropsWithClassName & IArticle & {
 	variant: 'pale' | 'bright',
 	href: string,
 }) {
@@ -52,6 +51,7 @@ function Row({
 			variant === 'pale' ? 'bg-foreground' : 'bg-background',
 		)}>
 			<RowCell className="font-mono">{id}</RowCell>
+			<RowCell>{url}</RowCell>
 			<RowCell>{title}</RowCell>
 			<RowCell className="font-mono">{dayjs(updatedAt).format('DD/MM/YY hh:mm')}</RowCell>
 			<RowCell className="font-mono">{dayjs(createdAt).format('DD/MM/YY hh:mm')}</RowCell>
@@ -76,7 +76,7 @@ export default function EditorPage() {
 					New 
 				</Button>
 			</div>
-			<div className="grid grid-cols-4">
+			<div className="grid grid-cols-[auto_auto_auto_auto_auto]">
 				<UpperRow/>
 				{
 					articles?.map((article, i) => (
