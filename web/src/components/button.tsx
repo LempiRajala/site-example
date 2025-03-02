@@ -1,4 +1,5 @@
 import { cva } from "class-variance-authority";
+import clsx from "clsx";
 import type { ComponentProps } from "react";
 
 const style = cva([
@@ -21,6 +22,6 @@ export function Button({
 	...props
 }: ComponentProps<'button'> & Parameters<typeof style>[0]) {
 	return (
-		<button {...props} className={style(props)}/>
+		<button {...props} className={clsx(className, style(props))}/>
 	)
 }
