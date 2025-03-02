@@ -20,12 +20,16 @@ body {
   scrollbar-width: none;
 }
 
+.article :where(h2, h3, h4, h5) {
+  @apply w-fit;
+}
+
 .article :where(h1, h2) {
-  @apply w-fit mt-6 mb-2 font-geist-mono;
+  @apply mt-6 mb-2 font-geist-mono;
 }
 
 .article h1 {
-  @apply text-2xl;
+  @apply text-2xl font-geist-mono text-center;
 }
 
 .article h2 {

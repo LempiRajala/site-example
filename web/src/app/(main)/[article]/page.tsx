@@ -35,7 +35,7 @@ export default async function ArticlePage({
 		<article
 			className="article p-2 mx-auto w-full max-w-laptop"
 			dangerouslySetInnerHTML={{
-				__html: `<h1>${article.title}</h1>${marked(article.content)}`
+				__html: marked(article.content),
 			}}
 		/>
 	);
