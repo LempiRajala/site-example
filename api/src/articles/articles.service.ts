@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateArticleDto, GetManyArticleDto, UpdateArticleDto } from './dto';
-import { db } from 'src/db';
-import { articleTable } from 'src/db/schema';
+import { CreateArticleDto, UpdateArticleDto } from './dto';
+import { db, articleTable } from '../db';
 import { asc, eq } from 'drizzle-orm';
 
 @Injectable()
@@ -19,7 +18,7 @@ export class ArticlesService {
     return article;
   }
 
-  getMany(query: GetManyArticleDto) {
+  getMany(query: { limit: number, offset: number }) {
     return db
       .select()
       .from(articleTable)

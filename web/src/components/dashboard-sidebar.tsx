@@ -7,18 +7,20 @@ import { usePathname } from "next/navigation";
 import { FaCircleUser } from "react-icons/fa6";
 
 const links: { text: string, path: string }[] = [{
-	text: 'Editor',
+	text: 'Редактор',
 	path: '/dashboard/editor',
 }, {
-	text: 'Profile',
+	text: 'Профиль',
 	path: '/dashboard/profile',
+}, {
+	text: 'Ссылки',
+	path: '/dashboard/links',
 }]
 
 function ProfileAvatar({ className }: PropsWithClassName) {
 	return (
 		<div className={clsx(className, "rounded-full w-full")}>
 			<FaCircleUser className="w-full h-full stroke-1 fill-gray-600"/>
-			{/* <div className="pt-[100%]"/> */}
 		</div>
 	)
 }

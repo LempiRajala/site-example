@@ -1,5 +1,6 @@
 'use client';
 
+import { ILink } from "@/api/value";
 import { PropsWithClassName } from "@/types";
 import clsx from "clsx"
 import Link from "next/link"
@@ -13,15 +14,12 @@ function Logo() {
 	)
 }
 
-const links: { text: string, path: string }[] = [{
-	path: '/about',
-	text: 'About us',
-}, {
-	path: '/contacts',
-	text: 'Contacts',
-}];
-
-export function Header({ className }: PropsWithClassName) {
+export function StupidHeader({
+	className,
+	links,
+}: PropsWithClassName & {
+	links: ILink[];
+}) {
 	const pathname = usePathname();
 
 	return (
@@ -30,15 +28,15 @@ export function Header({ className }: PropsWithClassName) {
 				<Logo/>
 				<nav className="flex gap-5 font-audiowide text-text-secondary transition-colors">
 					{
-						links.map(({ path, text }) => (
-							<Link key={text} href={path} className={clsx(
+						links.map(({ href, text }) => (
+							<Link key={text} href={href} className={clsx(
 								"relative hover:text-text",
-								pathname === path && 'text-text',
+								pathname === href && 'text-text',
 							)}>
 								{text}
 								<span className={clsx(
 									"absolute bottom-0 left-0 w-full h-[2px] rounded-sm bg-primary",
-									pathname === path ? 'opacity-100' : 'opacity-0',
+									pathname === href ? 'opacity-100' : 'opacity-0',
 								)}/>
 							</Link>
 						))

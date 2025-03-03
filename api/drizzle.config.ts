@@ -1,10 +1,9 @@
-import 'dotenv/config';
 import { defineConfig } from 'drizzle-kit';
-import { getDatabaseUrl } from 'src/config';
+import { getDatabaseUrl } from '@config';
 
 export default defineConfig({
   out: './drizzle',
-  schema: './src/db/schema.ts',
+  schema: './src/db/schema',
   dialect: 'postgresql',
   dbCredentials: {
     url: getDatabaseUrl(),

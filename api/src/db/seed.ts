@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { db } from ".";
 import { articleTable } from "./schema";
 import { resolve } from "node:path";
-import { HOUR, WEEK } from "src/const ";
+import { HOUR, WEEK } from "../const ";
 
 (async () => {
 	await seedDatabase();

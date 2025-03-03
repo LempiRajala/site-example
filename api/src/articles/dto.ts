@@ -1,5 +1,4 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { maxArticlesToRequest } from "src/const ";
 
 export class CreateArticleDto {
 	@ApiProperty({ type: 'string' })
@@ -33,12 +32,4 @@ export class UpdateArticleDto {
 	
 	@ApiProperty({ type: 'string', required: false })
 	metaKeywords?: string;
-}
-
-export class GetManyArticleDto {
-	@ApiProperty({ type: 'number' })
-	limit: number;
-
-	@ApiProperty({ type: 'number' })
-	offset: number;
 }

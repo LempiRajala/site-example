@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe, BadRequestException, Inject, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, BadRequestException, Inject, NotFoundException } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto, UpdateArticleDto } from './dto';
-import { maxArticlesToRequest } from 'src/const ';
+import { maxArticlesToRequest } from '../const ';
 
 @Controller('articles')
 export class ArticlesController {

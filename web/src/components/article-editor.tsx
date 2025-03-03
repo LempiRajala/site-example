@@ -10,9 +10,7 @@ import { updateArticle } from "@/actions";
 import { toastArticleUpsert, toastInvalidArticleUrl } from "@/toaster";
 import clsx from "clsx";
 import { PropsWithClassName } from "@/types";
-import { getH1 } from "@/utils";
-
-const normalizeUrl =(url: string) => url.replace(/[^a-z0-9-]/g, '');
+import { getH1, normalizeUrlSegment } from "@/utils";
 
 // https://uiwjs.github.io/react-md-editor/
 export function ArticleEditor({
@@ -57,7 +55,7 @@ export function ArticleEditor({
 	}
 
 	const onChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
-		setUrl(normalizeUrl(e.currentTarget.value));
+		setUrl(normalizeUrlSegment(e.currentTarget.value));
 	}
 
 	const onChangeMetaDescription = (e: ChangeEvent<HTMLInputElement>) => {
