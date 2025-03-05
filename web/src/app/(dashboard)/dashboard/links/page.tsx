@@ -29,7 +29,7 @@ function LinkEditor({
 				placeholder="Ссылка"
 				value={link.href}
 				onChange={e => onChange({ ...link, href: normalizeUrl(e.currentTarget.value) })}/>
-			<Button onClick={onDelete}>
+			<Button className="w-8 h-8" onClick={onDelete}>
 				<RxCross2 color="red"/>
 			</Button>
 		</div>
@@ -61,12 +61,14 @@ function LinksEditor({
 						onDelete={() => onChange(links.toSpliced(i, 1))}/>
 				))
 			}
-			<Button intent="secondary" className="w-fit col-span-full mt-1" onClick={onAdd}>
-				<BiPlus color="springGreen"/>
-			</Button>
-			<Button intent="primary" className="w-fit col-span-full mt-2" onClick={onSave}>
-				Сохранить
-			</Button>
+			<div className="col-span-full flex justify-between">
+				<Button intent="primary" className="w-fit" onClick={onSave}>
+					Сохранить
+				</Button>
+				<Button intent="secondary" className="w-8 h-8" onClick={onAdd}>
+					<BiPlus color="springGreen"/>
+				</Button>
+			</div>
 		</div>
 	)
 }
