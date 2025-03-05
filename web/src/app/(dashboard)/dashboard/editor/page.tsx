@@ -8,8 +8,8 @@ import { isEven } from "@/utils";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import type { PropsWithChildren } from "react";
+import { useRouter } from "next/navigation";
+import { useState, type PropsWithChildren } from "react";
 import { MdNavigateNext } from "react-icons/md";
 
 function Paginator({
@@ -98,9 +98,8 @@ function Row({
 
 export default function EditorPage() {
 	const router = useRouter();
-	const params = useSearchParams();
+	const [page, setPage] = useState(0);
 	const limit = 25;
-	const page = parseInt(params.get('page') ?? '0');
 	
 	const { data: articles } = useArticles({ limit: 25, offset: page * limit });
 
@@ -112,12 +111,12 @@ export default function EditorPage() {
 
 	const onNextPage = () => {
 		if(nextPageDisabled) return;
-		router.push(location.pathname + `?page=${page + 1}`);
+		setPage(page + 1);
 	}
 
 	const onPrevPage = () => {
 		if(prevPageDisabled) return;
-		router.push(location.pathname + `?page=${page - 1}`);
+		setPage(page - 1);
 	}
 
 	return (
