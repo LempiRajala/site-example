@@ -1,5 +1,5 @@
 import { DashboardSidebar } from "@/components/dashboard-sidebar";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { Toaster } from "react-hot-toast";
 
 export default function DashboardLayout({ children }: PropsWithChildren) {

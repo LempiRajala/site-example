@@ -1,7 +1,7 @@
 'use client';
 
 import { setHeaderLinks, setMobileMenuLinks } from "@/actions";
-import { ILink, setValue, VALUES } from "@/api/value";
+import type { ILink } from "@/api/value";
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { useHeaderLinks } from "@/hooks/useHeaderLinks";

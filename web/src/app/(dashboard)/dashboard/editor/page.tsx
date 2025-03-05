@@ -1,15 +1,15 @@
 'use client';
 
-import { IArticle } from "@/api";
+import type { IArticle } from "@/api";
 import { Button } from "@/components/button";
 import { useArticles } from "@/hooks/useArticles";
-import { PropsWithClassName } from "@/types";
+import type { PropsWithClassName } from "@/types";
 import { isEven } from "@/utils";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { MdNavigateNext } from "react-icons/md";
 
 function Paginator({

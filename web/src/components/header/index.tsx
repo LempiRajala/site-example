@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import { StupidHeader } from "./stupid-header";
 import { withoutController } from "@/api";
 import { getHeaderLinks } from "@/api/value";

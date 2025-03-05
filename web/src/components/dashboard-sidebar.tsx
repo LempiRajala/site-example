@@ -1,6 +1,6 @@
 'use client';
 
-import { PropsWithClassName } from "@/types";
+import type { PropsWithClassName } from "@/types";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

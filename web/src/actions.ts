@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import * as api from "./api";
-import { ILink, setValue, VALUES } from "./api/value";
+import { type ILink, setValue, VALUES } from "./api/value";
 
 export const updateArticle = async (...args: Parameters<typeof api.updateArticle>) => {
 	revalidatePath(`/${args[0]}`);

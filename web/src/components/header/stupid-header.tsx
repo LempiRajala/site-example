@@ -1,7 +1,7 @@
 'use client';
 
-import { ILink } from "@/api/value";
-import { PropsWithClassName } from "@/types";
+import type { ILink } from "@/api/value";
+import type { PropsWithClassName } from "@/types";
 import clsx from "clsx"
 import Link from "next/link"
 import { usePathname } from "next/navigation";

@@ -1,7 +1,7 @@
 'use client';
 
 import MDEditor from "@uiw/react-md-editor";
-import { ChangeEvent, useMemo, useState } from "react";
+import { type ChangeEvent, useMemo, useState } from "react";
 import { Button } from "./button";
 import { createArticle, type IArticle } from "@/api";
 import { Input } from "./input";
@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { updateArticle } from "@/actions";
 import { toastArticleUpsert, toastInvalidArticleUrl } from "@/toaster";
 import clsx from "clsx";
-import { PropsWithClassName } from "@/types";
+import type { PropsWithClassName } from "@/types";
 import { getH1, normalizeUrlSegment } from "@/utils";
 
 // https://uiwjs.github.io/react-md-editor/
