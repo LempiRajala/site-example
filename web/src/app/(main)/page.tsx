@@ -1,9 +1,15 @@
+import { getManyArticles, withoutController } from "@/api";
+import { ArticleCards } from "@/components/article-cards";
+
 export const revalidate = 120;
 
-export default function Home() {
+export default async function Home() {
+  const initialArticles = await withoutController(getManyArticles)({ offset: 0 });
+
   return (
-    <>
-      
-    </>
+    <ArticleCards
+      className="mx-auto max-w-laptop flex flex-col gap-4 mt-4"
+      initial={initialArticles}
+    />
   );
 }

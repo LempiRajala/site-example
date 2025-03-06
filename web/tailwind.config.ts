@@ -14,7 +14,7 @@ export default {
         'geist-mono': 'var(--font-geist-mono)',
       },
       maxWidth: {
-        laptop: '1280px',
+        laptop: '1024px',
       },
       borderWidth: {
         1: '1px',

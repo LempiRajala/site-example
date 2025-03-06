@@ -1,3 +1,4 @@
+import { getManyArticlesLimit } from "../../const";
 import { fetchApi, jsonHeader } from "./shared"
 
 export interface IArticle {
@@ -12,7 +13,7 @@ export interface IArticle {
 }
 
 export interface IGetManyArticles {
-	limit: number;
+	limit?: number;
 	offset: number;
 }
 
@@ -57,7 +58,7 @@ export const getArticleByUrl = (
 }
 
 export const getManyArticles = ({
-	limit,
+	limit = getManyArticlesLimit,
 	offset,
 }: IGetManyArticles) => {
 	const { controller, res } = fetchApi(`/articles?limit=${limit}&offset=${offset}`);

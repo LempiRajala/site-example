@@ -101,7 +101,7 @@ export default function EditorPage() {
 	const [page, setPage] = useState(0);
 	const limit = 25;
 	
-	const { data: articles } = useArticles({ limit: 25, offset: page * limit });
+	const { data: articles } = useArticles({ offset: page * limit });
 
 	const onNew = () => router.push('/dashboard/editor/new');
 

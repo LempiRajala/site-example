@@ -3,6 +3,7 @@ import { db } from ".";
 import { articleTable } from "./schema";
 import { resolve } from "node:path";
 import { HOUR, WEEK } from "../const ";
+import { getTitle } from "../utils";
 
 (async () => {
 	await seedDatabase();
@@ -20,7 +21,7 @@ async function seedDatabase() {
 				createdAt,
 				updatedAt: new Date(createdAt.getTime() + Math.random() * HOUR),
 				content,
-				title: content.split('\n').at(0)!.trim(),
+				title: getTitle(content) ?? 'заголовок',
 				url: `sample-${i}`,
 				metaKeywords: 'ai, tech, future',
 				metaDescription: 'Будущее с ИИ',

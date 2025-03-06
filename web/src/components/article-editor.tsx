@@ -10,7 +10,7 @@ import { updateArticle } from "@/actions";
 import { toastArticleUpsert, toastInvalidArticleUrl } from "@/toaster";
 import clsx from "clsx";
 import type { PropsWithClassName } from "@/types";
-import { getH1, normalizeUrlSegment } from "@/utils";
+import { getTitle, normalizeUrlSegment } from "@/utils";
 
 // https://uiwjs.github.io/react-md-editor/
 export function ArticleEditor({
@@ -21,7 +21,7 @@ export function ArticleEditor({
 }) {
 	const router = useRouter();
 	const [content, setContent] = useState(article?.content ?? "**Lets write something!**");
-	const title = useMemo(() => getH1(content) ?? '', [content]);
+	const title = useMemo(() => getTitle(content) ?? '', [content]);
 	const [url, setUrl] = useState(article?.url ?? '');
 	const [metaDescription, setMetaDescription] = useState(article?.metaDescription ?? '');
 	const [metaKeywords, setMetaKeywords] = useState(article?.metaKeywords ?? '');

@@ -1,0 +1,32 @@
+.article-card {
+	@apply relative p-2 overflow-hidden bg-foreground border-solid border-2 border-border;
+
+	clip-path: polygon(
+		0 0,
+		calc(100% - 10px) 0, 100% 10px,
+		100% 100%,
+		10px 100%, 0 calc(100% - 10px)
+	);
+}
+
+.article-card:before {
+	content: '';
+	@apply absolute bottom-[7px] left-0 origin-top-left rotate-45 h-0.5 w-[13px] bg-border;
+}
+
+.article-card:after {
+	content: '';
+	@apply absolute -top-[1px] right-[-7px] origin-top-left rotate-45 h-[3px] w-[13px] bg-border;
+}
+
+.article-card__header {
+	@apply mb-2 flex flex-col;
+}
+
+.article-card h2 {
+	@apply text-lg leading-6 font-geist-mono;
+}
+
+.article-card time {
+	@apply text-xs font-mono text-text-secondary;
+}
