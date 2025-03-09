@@ -93,6 +93,7 @@ export function ArticleEditor({
 			</div>
 			<MDEditor
 				autoFocus
+				preview="edit"
 				height="100%"
 				overflow={false}
 				value={content}
