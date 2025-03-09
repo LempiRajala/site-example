@@ -13,7 +13,7 @@ export const getTitle = (md: string) => {
 export const validateUrlSegment = (segment: string) => segment.replace(/[^a-z0-9-]/g, '');
 
 export const normalizeLink = (href: string) => (
-	href.startsWith('http') ? href : `/${href}`
+	href.startsWith('http') || href.startsWith('/') ? href : `/${href}`
 )
 
 const urlSafeRegex = new RegExp(/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]/g);
