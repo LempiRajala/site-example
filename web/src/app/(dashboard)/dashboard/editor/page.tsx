@@ -1,6 +1,6 @@
 'use client';
 
-import type { IArticle } from "@/api";
+import { createArticle, withoutController, type IArticle } from "@/api";
 import { Button } from "@/components/button";
 import { useArticles } from "@/hooks/useArticles";
 import type { PropsWithClassName } from "@/types";
@@ -103,7 +103,17 @@ export default function EditorPage() {
 	
 	const { data: articles } = useArticles({ offset: page * limit });
 
-	const onNew = () => router.push('/dashboard/editor/new');
+	const onNew = async () => {
+		const article = await withoutController(createArticle)({
+			content: 'контент статьи',
+			metaDescription: 'описание',
+			metaKeywords: 'ключевые слова',
+			title: 'заголовок',
+			url: Date.now().toString() + '_' + Math.random().toString().slice(2),
+		});
+
+		router.push(`/dashboard/editor/${article.id}`);
+	}
 
 	const nextPageDisabled = articles ? articles.length < limit : true;
 

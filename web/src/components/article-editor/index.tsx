@@ -1,30 +1,31 @@
 'use client';
 
-import MDEditor from "@uiw/react-md-editor";
+import MDEditor, { commands } from "@uiw/react-md-editor";
 import { type ChangeEvent, useMemo, useState } from "react";
-import { Button } from "./button";
-import { createArticle, type IArticle } from "@/api";
-import { Input } from "./input";
-import { useRouter } from "next/navigation";
+import { Button } from "../button";
+import { type IArticle } from "@/api";
+import { Input } from "../input";
 import { updateArticle } from "@/actions";
 import { toastArticleUpsert, toastInvalidArticleUrl } from "@/toaster";
 import clsx from "clsx";
 import type { PropsWithClassName } from "@/types";
 import { getTitle, normalizeUrlSegment } from "@/utils";
+import { imageCommand } from "./commands/image";
+import { makeCodePreviewCommand } from "./commands/codePreview";
 
 // https://uiwjs.github.io/react-md-editor/
 export function ArticleEditor({
 	article,
 	className,
 }: PropsWithClassName & {
-	article: IArticle | null,
+	article: IArticle,
 }) {
-	const router = useRouter();
-	const [content, setContent] = useState(article?.content ?? "**Lets write something!**");
-	const title = useMemo(() => getTitle(content) ?? '', [content]);
-	const [url, setUrl] = useState(article?.url ?? '');
-	const [metaDescription, setMetaDescription] = useState(article?.metaDescription ?? '');
-	const [metaKeywords, setMetaKeywords] = useState(article?.metaKeywords ?? '');
+	const [content, setContent] = useState(article.content);
+	const title = useMemo(() => getTitle(content), [content]);
+	const [url, setUrl] = useState(article.url);
+	const [metaDescription, setMetaDescription] = useState(article.metaDescription);
+	const [metaKeywords, setMetaKeywords] = useState(article.metaKeywords);
+	const codePreviewCommand = useMemo(() => makeCodePreviewCommand(article), [article]);
 
 	const onSave = async () => {
 		if(url.length === 0) {
@@ -32,26 +33,14 @@ export function ArticleEditor({
 			return;
 		}
 
-		const fields = {
+		const updated = updateArticle(article.id, {
 			content,
 			title,
 			url,
 			metaDescription,
 			metaKeywords,
-		}
-
-		if(article === null) {
-			const { data: articlePromise } = createArticle(fields);
-
-			articlePromise.then(
-				article => router.push(`/dashboard/editor/${article.id}`),
-				console.error,
-			);
-		} else {
-			const updated = updateArticle(article.id, fields);
-
-			toastArticleUpsert(updated);
-		}
+		});
+		toastArticleUpsert(updated);
 	}
 
 	const onChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +62,7 @@ export function ArticleEditor({
 			</div>
 			<div className="grid grid-cols-[auto_1fr] gap-y-3 gap-x-2 p-1 items-center mb-2">
 				<p className="text-lg">Заголовок:</p>
-				<Input spellCheck={false} value={title} disabled title="берется из статьи"/>
+				<Input className="cursor-not-allowed" spellCheck={false} value={title} disabled title="берется из статьи"/>
 				<p className="text-lg">Ссылка:</p>
 				<Input spellCheck={false} value={url} onChange={onChangeUrl}/>
 				<p className="text-lg">Описание:</p>
@@ -82,10 +71,35 @@ export function ArticleEditor({
 				<Input spellCheck={false} value={metaKeywords} onChange={onChangeMetaKeywords}/>
 			</div>
 			<MDEditor
+				autoFocus
 				height="100%"
 				overflow={false}
 				value={content}
 				onChange={v => v && setContent(v)}
+				commands={[
+					commands.bold,
+					commands.italic,
+					commands.strikethrough,
+					commands.title,
+					commands.divider,
+					commands.link,
+					commands.quote,
+					commands.code,
+					commands.codeBlock,
+					commands.comment,
+					imageCommand,
+					commands.divider,
+					commands.unorderedListCommand,
+					commands.orderedListCommand,
+					commands.checkedListCommand,
+					commands.divider,
+					commands.help,
+				]}
+				extraCommands={[
+					codePreviewCommand,
+					commands.divider,
+					commands.fullscreen,
+				]}
 			/>
 		</div>
 	)

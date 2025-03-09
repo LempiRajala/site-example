@@ -43,6 +43,13 @@
       "when": 1740928888066,
       "tag": "0005_dear_kree",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1741302696638,
+      "tag": "0006_salty_princess_powerful",
+      "breakpoints": true
     }
   ]
 }

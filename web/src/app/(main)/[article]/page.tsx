@@ -1,5 +1,5 @@
 import { getArticleByUrl } from "@/api";
-import { marked } from "marked";
+import { Article } from "@/components/article";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -32,11 +32,6 @@ export default async function ArticlePage({
 	}
 
 	return (
-		<article
-			className="article p-2 mx-auto w-full max-w-laptop"
-			dangerouslySetInnerHTML={{
-				__html: marked(article.content),
-			}}
-		/>
+		<Article article={article}/>
 	);
 }

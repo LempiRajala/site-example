@@ -27,7 +27,7 @@ export function ArticleCards({
 		<div className={className}>
 			{
 				articles.map(article => (
-					<ArticleCard key={article.id} {...article}/>
+					<ArticleCard key={article.id} {...article} href={`/${article.url}`}/>
 				))
 			}
 		</div>

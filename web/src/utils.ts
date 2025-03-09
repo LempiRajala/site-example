@@ -20,3 +20,31 @@ export const sortArticles = <T extends Pick<IArticle, 'id'>>(
 ) => {
 	return articles.sort((a, b) => a.id - b.id);
 }
+
+export const getImageFromUser = () => getFileFromUser("image/*");
+
+export const getFileFromUser = (accept?: string): Promise<File | null> => {
+  return new Promise(resolve => {
+    const input = document.createElement("input");
+    input.type = "file";
+    if(accept) {
+      input.accept = accept;
+    }
+    input.addEventListener("change", () => resolve(
+      input.files?.length ? input.files[0] : null));
+    input.click();
+  });
+}
+
+export const getFilesFromUser = (accept?: string): Promise<File[]> => {
+	return new Promise(resolve => {
+		const input = document.createElement("input");
+		input.type = "file";
+		input.multiple = true;
+		if(accept) {
+			input.accept = accept;
+		}
+		input.addEventListener("change", () => resolve(Array.from(input.files ?? [])));
+		input.click();
+	});
+}
