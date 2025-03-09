@@ -2,9 +2,20 @@ import { BadRequestException, Injectable, NotFoundException, OnModuleInit } from
 import { getValue, ILink, IValuesMap, setValue, VALUES } from '../db/schema';
 import { z } from 'zod';
 
-const defaultHeaderLinks: ILink[] = [];
-const defaultMobileMenuLinks: ILink[] = [];
-const defaultFooterLinks: ILink[] = [];
+const defaultHeaderLinks: ILink[] = [{
+  text: 'О нас',
+  href: 'about-us',
+}, {
+  text: 'Телеграм',
+  href: 'https://t.me/CROW_FOREST',
+}];
+
+const defaultMobileMenuLinks: ILink[] = defaultHeaderLinks;
+
+const defaultFooterLinks: ILink[] = [{
+  text: 'Пользовательское соглашение',
+  href: 'terms',
+}];
 
 @Injectable()
 export class ValuesService implements OnModuleInit {
