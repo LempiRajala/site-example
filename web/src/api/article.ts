@@ -139,3 +139,7 @@ export const deleteArticle = (
 		}),
 	}
 }
+
+export const watchArticle = (id: number) => {
+	return new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/articles/watch/${id}`);
+}

@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, BadRequestException, Inject, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Query, ParseIntPipe, BadRequestException, Inject, NotFoundException, Sse, Res } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto, UpdateArticleDto } from './dto';
 import { maxArticlesToRequest } from '../const ';
+import { Response } from 'express';
 
 @Controller('articles')
 export class ArticlesController {
@@ -40,6 +41,15 @@ export class ArticlesController {
     }
 
     return article;
+  }
+
+  @Sse('/watch/:id')
+  watchArticle(
+    @Param('id', ParseIntPipe) id: number,
+    @Res() res: Response,
+  ) {
+    res.on('close', () => this.articles.unwatchUpdates(id));
+    return this.articles.watchUpdates(id);
   }
 
   @Get('/url/:url')

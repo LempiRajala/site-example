@@ -4,15 +4,24 @@ import { revalidatePath } from "next/cache";
 import * as api from "./api";
 import { type ILink, setValue, VALUES } from "./api/value";
 
+export const revalidateArticle = async ({ id, url }: Pick<api.IArticle, 'id' | 'url'>) => {
+	console.log('revalid', id, url)
+	revalidatePath(`/${url}`);
+	revalidatePath(`/preview/${id}`);
+}
+
 export const updateArticle = async (...args: Parameters<typeof api.updateArticle>) => {
 	const result = await api.updateArticle(...args).data;
-	revalidatePath(`/${args[0]}`);
+	await revalidateArticle(result);
 	return result;
 }
 
 export const deleteArticle = async (...args: Parameters<typeof api.deleteArticle>) => {
 	const result = await api.deleteArticle(...args).data;
-	revalidatePath(`/${args[0]}`);
+	if(result) {
+		await revalidateArticle(result);
+	}
+
 	return result;
 }
 

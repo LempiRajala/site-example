@@ -1,8 +1,12 @@
 import { getArticle } from "@/api";
 import { Article } from "@/components/article";
 import { notFound } from "next/navigation";
+import { ReloadOnUpdate } from "./reload-on-update";
+import { ReloadIfStale } from "./reload-if-stale";
 
-export default async function EditorPage({
+export const dynamic = 'force-static';
+
+export default async function PreviewPage({
 	params,
 }: {
 	params: Promise<{ article: string }>
@@ -12,5 +16,11 @@ export default async function EditorPage({
 	const article = await getArticle(parseInt(articleId)).data;
 	if(!article) notFound();
 
-	return <Article article={article}/>
+	return (
+		<>
+			<ReloadIfStale article={article}/>
+			<ReloadOnUpdate id={article.id}/>
+			<Article article={article}/>
+		</>
+	)
 }

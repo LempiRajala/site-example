@@ -1,7 +1,7 @@
 'use client';
 
 import MDEditor, { commands } from "@uiw/react-md-editor";
-import { type ChangeEvent, useMemo, useState } from "react";
+import { type ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "../button";
 import { type IArticle } from "@/api";
 import { Input } from "../input";
@@ -26,22 +26,43 @@ export function ArticleEditor({
 	const [metaDescription, setMetaDescription] = useState(article.metaDescription);
 	const [metaKeywords, setMetaKeywords] = useState(article.metaKeywords);
 	const codePreviewCommand = useMemo(() => makeCodePreviewCommand(article), [article]);
+	
+	// TODO отрефакторить бы
+	const localArticleData = useRef<Pick<IArticle, 'content' | 'title' | 'url' | 'metaDescription' | 'metaKeywords'>>({
+		content,
+		title: title ?? '',
+		url,
+		metaDescription,
+		metaKeywords,
+	});
+	useEffect(() => void (localArticleData.current.content = content), [content]);
+	useEffect(() => void (localArticleData.current.title = title ?? ''), [title]);
+	useEffect(() => void (localArticleData.current.url = url), [url]);
+	useEffect(() => void (localArticleData.current.metaDescription = metaDescription), [metaDescription]);
+	useEffect(() => void (localArticleData.current.metaKeywords = metaKeywords), [metaKeywords]);
 
-	const onSave = async () => {
+	const onSave = useCallback(() => {
 		if(url.length === 0) {
 			toastInvalidArticleUrl();
 			return;
 		}
 
-		const updated = updateArticle(article.id, {
-			content,
-			title,
-			url,
-			metaDescription,
-			metaKeywords,
-		});
+		const updated = updateArticle(article.id, localArticleData.current);
 		toastArticleUpsert(updated);
-	}
+	}, [article]);
+
+	useEffect(() => {
+		const onkeydown = (e: KeyboardEvent) => {
+			if(e.ctrlKey && e.code === 'KeyS') {
+				e.preventDefault();
+				onSave();
+			}
+		}
+
+		document.addEventListener('keydown', onkeydown);
+		
+		return () => document.removeEventListener('keydown', onkeydown);
+	}, [onSave]);
 
 	const onChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
 		setUrl(normalizeUrlSegment(e.currentTarget.value));

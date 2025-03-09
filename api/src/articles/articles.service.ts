@@ -2,9 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { CreateArticleDto, UpdateArticleDto } from './dto';
 import { db, articleTable } from '../db';
 import { asc, eq } from 'drizzle-orm';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class ArticlesService {
+  private readonly articleUpdateEvents: Record<string, {
+    conns: number,
+    emitter: Subject<{
+      data: typeof articleTable.$inferSelect,
+    }>,
+  }> = {};
+
   async create(data: CreateArticleDto) {
     let [article] = await db
       .insert(articleTable)
@@ -16,6 +24,33 @@ export class ArticlesService {
     }
 
     return article;
+  }
+
+  unwatchUpdates(id: number) {
+    if(!(id in this.articleUpdateEvents)) return;
+    this.articleUpdateEvents[id].conns--;
+    if(this.articleUpdateEvents[id].conns <= 0) {
+      delete this.articleUpdateEvents[id];
+    }
+  }
+
+  watchUpdates(id: number) {
+    if (!this.articleUpdateEvents[id]) {
+      this.articleUpdateEvents[id] = {
+        conns: 1,
+        emitter: new Subject(),
+      }
+    }
+
+    return this.articleUpdateEvents[id].emitter.asObservable();
+  }
+
+  emitArticleUpdate(
+    id: number,
+    changes: typeof articleTable.$inferSelect,
+  ) {
+    if(!(id in this.articleUpdateEvents)) return;
+    this.articleUpdateEvents[id].emitter.next({ data: changes });
   }
 
   getMany(query: { limit: number, offset: number }) {
@@ -41,6 +76,9 @@ export class ArticlesService {
       .set(data)
       .where(eq(articleTable.id, id))
       .returning();
+
+    this.emitArticleUpdate(id, article);
+    
     return article;
   }
 
