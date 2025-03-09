@@ -9,7 +9,7 @@ import { updateArticle } from "@/actions";
 import { toastArticleUpsert, toastInvalidArticleUrl } from "@/toaster";
 import clsx from "clsx";
 import type { PropsWithClassName } from "@/types";
-import { getTitle, normalizeUrlSegment } from "@/utils";
+import { getTitle, validateUrlSegment } from "@/utils";
 import { imageCommand } from "./commands/image";
 import { makeCodePreviewCommand } from "./commands/codePreview";
 
@@ -65,7 +65,7 @@ export function ArticleEditor({
 	}, [onSave]);
 
 	const onChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
-		setUrl(normalizeUrlSegment(e.currentTarget.value));
+		setUrl(validateUrlSegment(e.currentTarget.value));
 	}
 
 	const onChangeMetaDescription = (e: ChangeEvent<HTMLInputElement>) => {

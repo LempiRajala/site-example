@@ -10,10 +10,14 @@ export const getTitle = (md: string) => {
 	return h1.slice(1).trimStart();
 }
 
-export const normalizeUrlSegment = (segment: string) => segment.replace(/[^a-z0-9-]/g, '');
+export const validateUrlSegment = (segment: string) => segment.replace(/[^a-z0-9-]/g, '');
+
+export const normalizeLink = (href: string) => (
+	href.startsWith('http') ? href : `/${href}`
+)
 
 const urlSafeRegex = new RegExp(/[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]/g);
-export const normalizeUrl = (url: string) => url.match(urlSafeRegex)?.join('') || '';
+export const validateUrl = (url: string) => url.match(urlSafeRegex)?.join('') || '';
 
 export const sortArticles = <T extends Pick<IArticle, 'id'>>(
 	articles: T[]

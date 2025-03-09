@@ -2,6 +2,7 @@
 
 import type { ILink } from "@/api/value";
 import type { PropsWithClassName } from "@/types";
+import { normalizeLink } from "@/utils";
 import clsx from "clsx"
 import Link from "next/link"
 import { usePathname } from "next/navigation";
@@ -29,7 +30,7 @@ export function StupidHeader({
 				<nav className="flex gap-5 font-audiowide text-text-secondary transition-colors mt-1">
 					{
 						links.map(({ href, text }) => (
-							<Link key={text} href={href} className={clsx(
+							<Link key={text} href={normalizeLink(href)} className={clsx(
 								"relative hover:text-text",
 								pathname === href && 'text-text',
 							)}>

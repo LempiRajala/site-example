@@ -7,5 +7,6 @@ export async function Header(
 	props: Omit<ComponentProps<typeof StupidHeader>, 'links'>,
 ) {
 	const links = await withoutController(getHeaderLinks)();
+	console.log(links)
 	return <StupidHeader links={links} {...props}/>
 }

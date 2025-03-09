@@ -7,7 +7,7 @@ import { Input } from "@/components/input";
 import { useFooterLinks } from "@/hooks/useFooterLinks";
 import { useHeaderLinks } from "@/hooks/useHeaderLinks";
 import { useMobileMenuLinks } from "@/hooks/useMobileMenuLinks";
-import { normalizeUrl } from "@/utils";
+import { validateUrl } from "@/utils";
 import { BiPlus } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 
@@ -29,7 +29,7 @@ function LinkEditor({
 			<Input
 				placeholder="Ссылка"
 				value={link.href}
-				onChange={e => onChange({ ...link, href: normalizeUrl(e.currentTarget.value) })}/>
+				onChange={e => onChange({ ...link, href: validateUrl(e.currentTarget.value) })}/>
 			<Button className="w-8 h-8" onClick={onDelete}>
 				<RxCross2 color="red"/>
 			</Button>
