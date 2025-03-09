@@ -21,7 +21,7 @@ export function ArticleEditor({
 	article: IArticle,
 }) {
 	const [content, setContent] = useState(article.content);
-	const title = useMemo(() => getTitle(content), [content]);
+	const title = useMemo(() => getTitle(content) ?? '', [content]);
 	const [url, setUrl] = useState(article.url);
 	const [metaDescription, setMetaDescription] = useState(article.metaDescription);
 	const [metaKeywords, setMetaKeywords] = useState(article.metaKeywords);

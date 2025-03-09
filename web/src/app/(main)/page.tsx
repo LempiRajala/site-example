@@ -7,9 +7,11 @@ export default async function Home() {
   const initialArticles = await withoutController(getManyArticles)({ offset: 0 });
 
   return (
-    <ArticleCards
-      className="mx-auto max-w-laptop flex flex-col gap-4 mt-4"
-      initial={initialArticles}
-    />
+    <main className="w-full p-2">
+      <ArticleCards
+        className="mx-auto max-w-laptop flex flex-col gap-4 mt-4"
+        initial={initialArticles}
+      />
+    </main>
   );
 }

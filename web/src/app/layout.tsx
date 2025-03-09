@@ -31,9 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${geistSans.variable} ${geistMono.variable} ${audiowide.variable} antialiased no-scrollbar`}>
-      <body className="bg-ablack text-text font-geist">
-        {children}
-      </body>
+      {children}
     </html>
   );
 }

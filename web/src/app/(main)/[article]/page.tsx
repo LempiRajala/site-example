@@ -34,7 +34,9 @@ export default async function ArticlePage({
 
 	return (
 		<>
-			<Article article={article}/>
+			<main>
+				<Article article={article}/>
+			</main>
 			<Footer/>
 		</>
 	);

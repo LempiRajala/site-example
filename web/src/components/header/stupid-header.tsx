@@ -31,7 +31,7 @@ export function StupidHeader({
 					{
 						links.map(({ href, text }) => (
 							<Link key={text} href={normalizeLink(href)} className={clsx(
-								"relative hover:text-text",
+								"relative transition-colors hover:text-text",
 								pathname === href && 'text-text',
 							)}>
 								{text}

@@ -21,7 +21,9 @@ export default async function PreviewPage({
 		<>
 			<ReloadIfStale article={article}/>
 			<ReloadOnUpdate id={article.id}/>
-			<Article article={article}/>
+			<main>
+				<Article article={article}/>
+			</main>
 			<Footer/>
 		</>
 	)
