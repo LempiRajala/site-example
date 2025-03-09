@@ -3,6 +3,7 @@ import { Article } from "@/components/article";
 import { notFound } from "next/navigation";
 import { ReloadOnUpdate } from "./reload-on-update";
 import { ReloadIfStale } from "./reload-if-stale";
+import { Footer } from "@/components/footer";
 
 export const dynamic = 'force-static';
 
@@ -21,6 +22,7 @@ export default async function PreviewPage({
 			<ReloadIfStale article={article}/>
 			<ReloadOnUpdate id={article.id}/>
 			<Article article={article}/>
+			<Footer/>
 		</>
 	)
 }

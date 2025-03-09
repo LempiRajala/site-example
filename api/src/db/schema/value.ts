@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 export enum VALUES {
 	HEADER_LINKS = 'HEADER_LINKS',
 	MOBILE_MENU_LINKS = 'MOBILE_MENU_LINKS',
+	FOOTER_LINKS = 'FOOTER_LINKS',
 }
 
 export const pgValuesEnum = pgEnum('values_keys', enumToPgEnum(VALUES));
@@ -23,6 +24,7 @@ export interface ILink {
 export interface IValuesMap {
 	[VALUES.HEADER_LINKS]: ILink[];
 	[VALUES.MOBILE_MENU_LINKS]: ILink[];
+	[VALUES.FOOTER_LINKS]: ILink[];
 }
 
 export const getValue = async <T extends VALUES>(

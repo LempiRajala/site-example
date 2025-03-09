@@ -22,6 +22,6 @@ export class ValuesController {
   ) {
     const validKey = this.values.validateKey(key);
     const validValue = this.values.validateValue(validKey, body);
-    return this.values.set(validKey, validValue);
+    return await this.values.set(validKey, validValue);
   }
 }

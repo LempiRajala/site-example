@@ -1,5 +1,6 @@
 import { getArticleByUrl } from "@/api";
 import { Article } from "@/components/article";
+import { Footer } from "@/components/footer";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -32,6 +33,9 @@ export default async function ArticlePage({
 	}
 
 	return (
-		<Article article={article}/>
+		<>
+			<Article article={article}/>
+			<Footer/>
+		</>
 	);
 }

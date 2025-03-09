@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 const defaultHeaderLinks: ILink[] = [];
 const defaultMobileMenuLinks: ILink[] = [];
+const defaultFooterLinks: ILink[] = [];
 
 @Injectable()
 export class ValuesService implements OnModuleInit {
@@ -14,6 +15,10 @@ export class ValuesService implements OnModuleInit {
     
     if(!await this.has(VALUES.MOBILE_MENU_LINKS)) {
       await this.set(VALUES.MOBILE_MENU_LINKS, defaultMobileMenuLinks);
+    }
+
+    if(!await this.has(VALUES.FOOTER_LINKS)) {
+      await this.set(VALUES.FOOTER_LINKS, defaultFooterLinks);
     }
   }
 
@@ -36,7 +41,11 @@ export class ValuesService implements OnModuleInit {
     key: T,
     value: unknown,
   ): IValuesMap[T] {
-    if(key === VALUES.HEADER_LINKS || key === VALUES.MOBILE_MENU_LINKS) {
+    if(
+      key === VALUES.HEADER_LINKS ||
+      key === VALUES.MOBILE_MENU_LINKS ||
+      key === VALUES.FOOTER_LINKS
+    ) {
       const parsed = this.linksSchema.safeParse(value);
       if(!parsed.success) throw new BadRequestException(parsed.error);
       return parsed.data;

@@ -1,9 +1,10 @@
 'use client';
 
-import { setHeaderLinks, setMobileMenuLinks } from "@/actions";
+import { setFooterLinks, setHeaderLinks, setMobileMenuLinks } from "@/actions";
 import type { ILink } from "@/api/value";
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
+import { useFooterLinks } from "@/hooks/useFooterLinks";
 import { useHeaderLinks } from "@/hooks/useHeaderLinks";
 import { useMobileMenuLinks } from "@/hooks/useMobileMenuLinks";
 import { normalizeUrl } from "@/utils";
@@ -76,15 +77,21 @@ function LinksEditor({
 export default function LinksPage() {
 	const { data: headerLinks, mutate: mutateHeaderLinks } = useHeaderLinks();
 	const { data: mobileMenuLinks, mutate: mutateMobileMenuLinks } = useMobileMenuLinks();
+	const { data: footerLinks, mutate: mutateFooterLinks } = useFooterLinks();
 
 	const onSaveHeaderLinks = () => {
 		if(!headerLinks) return;
 		setHeaderLinks(headerLinks);
 	}
 
-	const onSaveMobileMenuLink = () => {
+	const onSaveMobileMenuLinks = () => {
 		if(!mobileMenuLinks) return;
 		setMobileMenuLinks(mobileMenuLinks);
+	}
+
+	const onSaveFooterLinks = () => {
+		if(!footerLinks) return;
+		setFooterLinks(footerLinks);
 	}
 
 	return (
@@ -96,9 +103,14 @@ export default function LinksPage() {
 				onChange={links => mutateHeaderLinks(links, false)}/>
 			<LinksEditor
 				title="Ссылки в мобильном меню"
-				onSave={onSaveMobileMenuLink}
+				onSave={onSaveMobileMenuLinks}
 				links={mobileMenuLinks ?? []}
 				onChange={links => mutateMobileMenuLinks(links, false)}/>
+			<LinksEditor
+				title="Ссылки в футере"
+				onSave={onSaveFooterLinks}
+				links={footerLinks ?? []}
+				onChange={links => mutateFooterLinks(links, false)}/>
 		</div>
 	)
 }

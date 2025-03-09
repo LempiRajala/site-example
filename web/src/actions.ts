@@ -40,3 +40,11 @@ export const setMobileMenuLinks = async (
 	revalidatePath('/', 'layout');
 	return result;
 }
+
+export const setFooterLinks = async (
+	links: ILink[],
+) => {
+	const result = await api.withoutController(setValue)(VALUES.FOOTER_LINKS, links);
+	revalidatePath('/', 'layout');
+	return result;
+}
